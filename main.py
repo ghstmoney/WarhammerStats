@@ -4,6 +4,8 @@
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
 import dice
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 def get_unit_stats():
@@ -39,7 +41,7 @@ def roll_hits():
     numRolls = input("Number of shots the unit gets: ")
 
 
-    for x in range(1001):
+    for x in range(1000):
         hitRoll = dice.roll(numRolls + 'd6')
         numHits = 0
         for roll in hitRoll:
@@ -47,7 +49,7 @@ def roll_hits():
                 numHits = numHits + 1
         numHitsTotal.append(numHits)
 
-    averageHits = (sum(numHitsTotal) / len(numHitsTotal))
+    averageHits = round(sum(numHitsTotal) / len(numHitsTotal))
 
     print(hitRoll)
     print("Average Number of hits over 1000 shooting phases: " + str(averageHits))
@@ -59,7 +61,7 @@ def calc_wounds():
     for toughness in range(17):
         wounds = 0
 
-        for woundRoll in range(1001):
+        for woundRoll in range(averageHits * 1000):
             #figure out the roll needed for a successful wound
 
             # If the weapon strength is half of the toughness wounds on a 6 up
@@ -100,6 +102,12 @@ def calc_wounds():
         damageTable.append(wounds)
 
     print(damageTable)
+    toughnesses = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
+    figure, axis = plt.subplots()
+    axis.plot(toughnesses, damageTable)
+    axis.set(xlabel = "Toughness", ylabel = "Average Number of Wounds", title = "Example")
+    axis.grid()
+    plt.show()
 
 
 
