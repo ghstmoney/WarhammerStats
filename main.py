@@ -47,8 +47,6 @@ def roll_hits():
                 numHits = numHits + 1
         numHitsTotal.append(numHits)
 
-    print(sum(numHitsTotal))
-    print(len(numHitsTotal))
     averageHits = (sum(numHitsTotal) / len(numHitsTotal))
 
     print(hitRoll)
