@@ -60,46 +60,44 @@ def calc_wounds():
     #calculate the wounds for toughness 1 through 17
     for toughness in range(17):
         wounds = 0
+        damageRolls = dice.roll(str((averageHits * 1000)) + "d6")
 
-        for woundRoll in range(averageHits * 1000):
-            #figure out the roll needed for a successful wound
+        #figure out the roll needed for a successful wound
 
-            # If the weapon strength is half of the toughness wounds on a 6 up
-            if int(WPS) < toughness and int(WPS) / toughness <= .5:
-                diceRoll = dice.roll("1d6")
-                if diceRoll[0] >= 6:
-                    wounds = wounds + 1
-                continue
+        # If the weapon strength is half of the toughness wounds on a 6 up
+        if int(WPS) < toughness and int(WPS) / toughness <= .5:
+            damageRolls = [x for x in damageRolls if (x == 6)]
+            wounds = len(damageRolls)
+            damageTable.append(wounds)
+            continue
 
-            # If the weapon strength less than the toughness wounds on a 5 up
-            if int(WPS) < toughness:
-                diceRoll = dice.roll("1d6")
-                if diceRoll[0] >= 5:
-                    wounds = wounds + 1
-                continue
+        # If the weapon strength less than the toughness wounds on a 5 up
+        if int(WPS) < toughness:
+            damageRolls = [x for x in damageRolls if (x >= 5)]
+            wounds = len(damageRolls)
+            damageTable.append(wounds)
+            continue
 
-            # If the weapon strength equals the toughness wounds on a 4 up
-            if int(WPS) == toughness:
-                diceRoll = dice.roll("1d6")
-                if diceRoll[0] >= 4:
-                    wounds = wounds + 1
-                continue
+        # If the weapon strength equals the toughness wounds on a 4 up
+        if int(WPS) == toughness:
+            damageRolls = [x for x in damageRolls if (x >= 4)]
+            wounds = len(damageRolls)
+            damageTable.append(wounds)
+            continue
 
-            # If the weapon strength is greater than the toughness wound on a 3 up
-            if int(WPS) > toughness:
-                diceRoll = dice.roll("1d6")
-                if diceRoll[0] >= 3:
-                    wounds = wounds + 1
-                continue
+        # If the weapon strength is greater than the toughness wound on a 3 up
+        if int(WPS) > toughness:
+            damageRolls = [x for x in damageRolls if (x >= 3)]
+            wounds = len(damageRolls)
+            damageTable.append(wounds)
+            continue
 
-            # If the weapon strength is double the toughness wound on a 2 up
-            if int(WPS) > toughness and int(WPS) / toughness >= 2:
-                diceRoll = dice.roll("1d6")
-                if diceRoll[0] >= 2:
-                    wounds = wounds + 1
-                continue
-
-        damageTable.append(wounds)
+        # If the weapon strength is double the toughness wound on a 2 up
+        if int(WPS) > toughness and int(WPS) / toughness >= 2:
+            damageRolls = [x for x in damageRolls if (x >= 2)]
+            wounds = len(damageRolls)
+            damageTable.append(wounds)
+            continue
 
     print(damageTable)
     toughnesses = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
