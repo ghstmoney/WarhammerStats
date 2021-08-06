@@ -9,6 +9,7 @@ import numpy as np
 
 
 def get_unit_stats():
+    global uName
     global WS
     global BS
     global S
@@ -16,6 +17,7 @@ def get_unit_stats():
     global A
 
     print("Please enter the units statistics")
+    uName = input("Unit Name: ")
     WS = input("WS: ")
     BS = input("BS: ")
     T = input("T: ")
@@ -103,13 +105,9 @@ def calc_wounds():
     toughnesses = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
     figure, axis = plt.subplots()
     axis.plot(toughnesses, damageTable)
-    axis.set(xlabel = "Toughness", ylabel = "Average Number of Wounds", title = "Example")
+    axis.set(xlabel = "Toughness", ylabel = "Average Number of Wounds", title = uName)
     axis.grid()
     plt.show()
-
-
-
-
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
